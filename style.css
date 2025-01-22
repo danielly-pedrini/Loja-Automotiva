@@ -10,7 +10,7 @@ body {
     background-color: black;
     color: white;
     font-size: 16px;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 header {
@@ -19,24 +19,29 @@ header {
     left: 50%;
     transform: translateX(-50%);
     display: grid;
-    grid-template-columns: 1fr 600px;
-    gap: 10%;
+    grid-template-columns: 1fr minmax(auto, 600px);
+    gap: clamp(1rem, 5vw, 10%);
     z-index: 2;
     align-items: center;
+    padding: 1rem;
 
     & img {
-        width: 250px;
+        width: clamp(150px, 30vw, 250px);
     }
 
     & nav {
         & ul {
             display: grid;
-            grid-template-columns: repeat(3, 200px);
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1rem;
         }
     }
 
     & li {
         cursor: pointer;
+        text-align: center;
+        white-space: nowrap;
+        font-size: clamp(14px, 1.5vw, 16px);
     }
 
     & li:hover {
@@ -45,13 +50,49 @@ header {
     }
 }
 
+/* Menu hamburguer para mobile */
+.menu-mobile {
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .menu-mobile {
+        display: block;
+    }
+
+    header nav {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: black;
+        padding: 1rem;
+        transform: translateY(-100%);
+        transition: 0.3s;
+        opacity: 0;
+        pointer-events: none;
+
+        &.active {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        & ul {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
 section {
     background-image: radial-gradient(rgb(12, 231, 12), rgb(113, 212, 138));
-    height: 100vh;
+    min-height: 100vh;
     position: relative;
+    overflow: hidden;
 
     & .list {
-        width: 70vw;
+        width: min(90vw, 1200px);
         height: 100%;
         margin: auto;
         position: relative;
@@ -59,12 +100,20 @@ section {
         & .item {
             position: absolute;
             inset: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            align-items: center;
+            padding: clamp(1rem, 3vw, 3rem);
 
             & .car-img {
-                position: absolute;
-                top: 50%;
+                position: relative;
+                width: min(100%, 800px);
+                margin: auto;
                 transform: translateY(-50%);
-                width: 70%;
+
+                @media (max-width: 1024px) {
+                    transform: translateY(0);
+                }
 
                 & img {
                     width: 100%;
@@ -76,63 +125,73 @@ section {
                     position: absolute;
                     background-color: #000;
                     width: 100%;
-                    height: 100px;
+                    height: clamp(50px, 10vw, 100px);
                     top: 150%;
                     left: 50px;
-                    border: 50%;
+                    border-radius: 50%;
                     filter: blur(50px);
                 }
             }
 
             & .content {
-                position: absolute;
-                right: 100px;
-                width: 70%;
+                position: relative;
+                width: 100%;
                 height: 100%;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                /* eixo vertical*/
-                align-items: end;
-                gap: 20px;
+                align-items: flex-end;
+                gap: clamp(10px, 2vw, 20px);
+                padding: 1rem;
+
+                @media (max-width: 1024px) {
+                    align-items: center;
+                    text-align: center;
+                }
 
                 & .car-information {
-                    font-weight: bolt;
+                    font-weight: bold;
+                    font-size: clamp(14px, 1.5vw, 16px);
                 }
 
                 & p {
-                    margin-inline-end: -150px;
+                    margin-inline-end: 0;
                     font-weight: bold;
                 }
 
                 & h2 {
-                    font-size: 6em;
+                    font-size: clamp(2.5em, 6vw, 6em);
                     line-height: 1em;
                     font-family: "League Gothic", sans-serif;
-                    margin-inline-end: -150px;
-                    margin-top: 20px;
+                    margin-inline-end: 0;
+                    margin-top: clamp(10px, 2vw, 20px);
                 }
 
                 & .description {
                     color: rgb(80, 78, 78);
-                    font-size: 12px;
+                    font-size: clamp(12px, 1.2vw, 14px);
                     text-align: right;
-                    max-width: 400px;
-                    margin-inline-end: -150px;
+                    max-width: min(400px, 90%);
+                    margin-inline-end: 0;
+
+                    @media (max-width: 1024px) {
+                        text-align: center;
+                    }
                 }
 
                 & .information {
                     border-radius: 30px;
-                    height: 35px;
-                    width: 120px;
+                    padding: 0.8em 1.5em;
                     text-transform: uppercase;
                     border: 2px solid white;
                     background-color: #3ae70e;
                     color: black;
-                    font-size: 14px;
+                    font-size: clamp(12px, 1.2vw, 14px);
                     cursor: pointer;
-                    margin-inline-end: -150px;
+                    margin-inline-end: 0;
                     font-family: "League Gothic", sans-serif;
+                    width: auto;
+                    height: auto;
                 }
             }
         }
@@ -144,21 +203,27 @@ section {
             width: 112%;
             top: 50%;
             border-top: 2px solid white;
+
+            @media (max-width: 1024px) {
+                display: none;
+            }
         }
     }
 
-
     .arrow {
-
-        width: 85vw;
+        width: min(85vw, 1200px);
         position: absolute;
         top: 50%;
-        left: 52%;
+        left: 50%;
         transform: translate(-50%, -25px);
         display: flex;
         justify-content: space-between;
+        z-index: 1;
 
-
+        @media (max-width: 1024px) {
+            bottom: 100px;
+            top: auto;
+        }
 
         & button:nth-child(1) {
             & img {
@@ -167,52 +232,47 @@ section {
         }
 
         & button {
-
-            top: 60%;
-            width: 50px;
-            height: 50px;
+            width: clamp(35px, 5vw, 50px);
+            height: clamp(35px, 5vw, 50px);
             border-radius: 50%;
             border: none;
             cursor: pointer;
 
-
             & img {
-                width: 30px;
-                margin-top: 4px;
+                width: 60%;
+                margin: auto;
                 cursor: pointer;
             }
 
             &:hover {
                 background-color: rgb(40, 190, 40);
             }
-
         }
     }
 
     .indicators {
         position: absolute;
-        top: 50%;
+        bottom: clamp(1rem, 3vw, 2rem);
         left: 50%;
         transform: translateX(-50%);
-        height: 200px;
         width: 90vw;
         display: flex;
         flex-direction: column;
-        justify-content: end;
-        gap: 15px;
+        align-items: center;
+        gap: clamp(8px, 1.5vw, 15px);
 
         & .number {
-            font-size: 5em;
+            font-size: clamp(3em, 8vw, 5em);
             font-family: "League Gothic", sans-serif;
         }
 
         & ul {
             display: flex;
-            gap: 10px;
+            gap: clamp(5px, 1vw, 10px);
 
             & li {
-                width: 50px;
-                height: 5px;
+                width: clamp(30px, 4vw, 50px);
+                height: clamp(3px, 0.5vw, 5px);
                 background-color: white;
                 border-radius: 5px;
                 transition: 0.5s;
@@ -221,11 +281,11 @@ section {
             & .active {
                 background-color: rgb(40, 190, 40);
             }
-
         }
     }
 }
 
+/* Animations */
 section {
     & .list {
         --calculation: 1;
@@ -244,16 +304,6 @@ section {
             }
 
             & .content {
-                position: absolute;
-                right: 100px;
-                width: 70%;
-                height: 100%;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: end;
-                gap: 20px;
-
                 & .car-information,
                 & h2,
                 & .description,
@@ -288,7 +338,6 @@ section {
             }
 
             & .content {
-
                 & .car-information,
                 & h2,
                 & .description,
@@ -298,70 +347,28 @@ section {
                 }
             }
         }
-
     }
 }
 
-@media screen and (max-width: 480px) {
-    :root {
-        --header-height: 60px;
-    }
-
-    section .list .item {
-        padding: 1rem;
+/* Landscape mode adjustments */
+@media (max-height: 600px) and (orientation: landscape) {
+    .car-img {
+        max-width: 50% !important;
     }
 
     .content h2 {
-        font-size: 2rem;
-    }
-
-    .arrow button {
-        width: 35px;
-    }
-
-    .indicators ul li {
-        width: 25px;
-    }
-}
-
-@media screen and (min-width: 1920px) {
-    :root {
-        --content-width: 1800px;
-    }
-
-    .car-img img {
-        max-width: 90%;
-    }
-}
-
-@media screen and (max-height: 600px) and (orientation: landscape) {
-    section .list .item {
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-    }
-
-    .content h2 {
-        font-size: clamp(2rem, 4vw, 3rem);
+        font-size: 2em !important;
     }
 
     .indicators {
-        bottom: 0.5rem;
+        bottom: 0.5rem !important;
     }
 }
 
-@media (prefers-contrast: high) {
-    .content .information {
-        border-width: 3px;
-    }
-
-    .indicators ul li {
-        border: 1px solid black;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
+/* High DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     * {
-        animation: none !important;
-        transition-duration: 0s !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 }

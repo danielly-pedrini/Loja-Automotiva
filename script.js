@@ -36,3 +36,10 @@ prevButton.onclick = () => {
     setSlider()
     items[active].classList.add('active')
 }
+
+const menuButton = document.querySelector('.menu-mobile');
+const nav = document.querySelector('header nav');
+
+menuButton.addEventListener('click', () => {
+    nav.classList.toggle('active');
+});
