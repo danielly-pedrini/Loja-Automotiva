@@ -303,20 +303,65 @@ section {
 }
 
 @media screen and (max-width: 480px) {
-    section .list .item .content h2 {
-        font-size: 2em;
+    :root {
+        --header-height: 60px;
     }
 
-    section .list .item .content .description {
-        font-size: 12px;
+    section .list .item {
+        padding: 1rem;
+    }
+
+    .content h2 {
+        font-size: 2rem;
     }
 
     .arrow button {
-        width: 40px;
-        height: 40px;
+        width: 35px;
     }
 
-    .arrow button img {
-        width: 20px;
+    .indicators ul li {
+        width: 25px;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    :root {
+        --content-width: 1800px;
+    }
+
+    .car-img img {
+        max-width: 90%;
+    }
+}
+
+@media screen and (max-height: 600px) and (orientation: landscape) {
+    section .list .item {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .content h2 {
+        font-size: clamp(2rem, 4vw, 3rem);
+    }
+
+    .indicators {
+        bottom: 0.5rem;
+    }
+}
+
+@media (prefers-contrast: high) {
+    .content .information {
+        border-width: 3px;
+    }
+
+    .indicators ul li {
+        border: 1px solid black;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition-duration: 0s !important;
     }
 }
