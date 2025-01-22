@@ -301,3 +301,22 @@ section {
 
     }
 }
+
+@media screen and (max-width: 480px) {
+    section .list .item .content h2 {
+        font-size: 2em;
+    }
+
+    section .list .item .content .description {
+        font-size: 12px;
+    }
+
+    .arrow button {
+        width: 40px;
+        height: 40px;
+    }
+
+    .arrow button img {
+        width: 20px;
+    }
+}
