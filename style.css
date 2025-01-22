@@ -50,7 +50,7 @@ header {
     }
 }
 
-/* Menu hamburguer para mobile */
+
 .menu-mobile {
     display: none;
     cursor: pointer;
@@ -285,7 +285,6 @@ section {
     }
 }
 
-/* Animations */
 section {
     & .list {
         --calculation: 1;
@@ -350,7 +349,7 @@ section {
     }
 }
 
-/* Landscape mode adjustments */
+
 @media (max-height: 600px) and (orientation: landscape) {
     .car-img {
         max-width: 50% !important;
@@ -365,7 +364,7 @@ section {
     }
 }
 
-/* High DPI screens */
+
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     * {
         -webkit-font-smoothing: antialiased;
